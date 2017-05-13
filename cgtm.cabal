@@ -1,0 +1,61 @@
+name:                cgtm
+version:             0.1.0.0
+-- synopsis:
+-- description:
+homepage:            https://github.com/pepijnkokke/cgtm#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Pepijn Kokke
+maintainer:          pepijn.kokke@gmail.com
+copyright:           (c) 2017 Pepijn Kokke
+category:            Web
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Data.TM, Data.TM.Export, Data.Enumerable
+  build-depends:       base >= 4.7 && < 5
+                     , containers
+                     , text
+  default-language:    Haskell2010
+
+executable cgtm-exe
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , cgtm
+  default-language:    Haskell2010
+
+test-suite cgtm-spec
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  other-modules:       BitSucc
+  main-is:             Spec.hs
+  build-depends:       base
+                     , cgtm
+                     , text
+                     , QuickCheck
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+test-suite cgtm-spec-cg
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  other-modules:       BitSucc
+  main-is:             SpecCG.hs
+  build-depends:       base
+                     , cgtm
+                     , filepath
+                     , process
+                     , temporary
+                     , text
+                     , QuickCheck
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/pepijnkokke/cgtm
