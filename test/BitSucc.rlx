@@ -20,12 +20,16 @@ BEFORE-SECTIONS
 ADDCOHORT ("<State>" "State0") BEFORE CELL IF (-1 (>>>));
 
 SECTION
+ADDCOHORT ("<Cell>" "_")
+   BEFORE ("<State>")
+       IF (-1 (>>>));
+ADDCOHORT ("<Cell>" "_")
+    AFTER ("<Cell>")
+       IF ( 0 (<<<) LINK -1 ("<State>"));
+
 ADD OLDSTATE STATE;
 ADD OLDCELL CELL IF (-1 OLDSTATE);
 
-ADDCOHORT ("<Cell>" "_")
-    AFTER ("<State>" "State0" "OLD")
-       IF (0 (<<<));
 ADDCOHORT ("<State>" "State1")
    BEFORE ("<Cell>")
        IF (-2 ("<State>" "State0" "OLD") LINK
@@ -34,10 +38,6 @@ ADDCOHORT ("<Cell>" "_")
     AFTER ("<Cell>" "_" "OLD")
        IF (-1 ("<State>" "State0" "OLD"));
 
-ADDCOHORT ("<Cell>" "_")
-   BEFORE ("<State>" "State0" "OLD")
-       IF ( 1 ("<Cell>" "0") LINK
-           -2 (>>>));
 ADDCOHORT ("<State>" "State0")
    BEFORE ("<Cell>")
        IF (1 ("<State>" "State0" "OLD") LINK
@@ -46,9 +46,6 @@ ADDCOHORT ("<Cell>" "0")
     AFTER ("<Cell>" "0" "OLD")
        IF (-1 ("<State>" "State0" "OLD"));;
 
-ADDCOHORT ("<Cell>" "_")
-   BEFORE ("<State>" "State0" "OLD")
-       IF (1 ("<Cell>" "1") LINK -2 (>>>));
 ADDCOHORT ("<State>" "State0")
    BEFORE ("<Cell>")
        IF (1 ("<State>" "State0" "OLD") LINK
@@ -57,9 +54,6 @@ ADDCOHORT ("<Cell>" "1")
     AFTER ("<Cell>" "1" "OLD")
        IF (-1 ("<State>" "State0" "OLD"));;
 
-ADDCOHORT ("<Cell>" "_")
-   BEFORE ("<State>" "State1" "OLD")
-       IF (1 ("<Cell>" "_") LINK -2 (>>>));
 ADDCOHORT ("<State>" "State2")
    BEFORE ("<Cell>")
        IF (1 ("<State>" "State1" "OLD") LINK
@@ -68,9 +62,6 @@ ADDCOHORT ("<Cell>" "1")
     AFTER ("<Cell>" "_" "OLD")
        IF (-1 ("<State>" "State1" "OLD"));;
 
-ADDCOHORT ("<Cell>" "_")
-    AFTER ("<State>" "State1" "OLD")
-       IF (0 (<<<));
 ADDCOHORT ("<State>" "State2")
    BEFORE ("<Cell>")
        IF (-2 ("<State>" "State1" "OLD") LINK
@@ -79,9 +70,6 @@ ADDCOHORT ("<Cell>" "1")
     AFTER ("<Cell>" "0" "OLD")
        IF (-1 ("<State>" "State1" "OLD"));
 
-ADDCOHORT ("<Cell>" "_")
-    AFTER ("<State>" "State1" "OLD")
-       IF (0 (<<<));
 ADDCOHORT ("<State>" "State1")
    BEFORE ("<Cell>")
        IF (-2 ("<State>" "State1" "OLD") LINK
@@ -90,17 +78,11 @@ ADDCOHORT ("<Cell>" "0")
     AFTER ("<Cell>" "1" "OLD")
        IF (-1 ("<State>" "State1" "OLD"));
 
-ADDCOHORT ("<Cell>" "_")
-    AFTER ("<State>" "State2" "OLD")
-       IF (0 (<<<));
-# next state intentionally omitted
+# this state transition intentionally omitted
 ADDCOHORT ("<Cell>" "_")
     AFTER ("<Cell>" "_" "OLD")
        IF (-1 ("<State>" "State2" "OLD"));
 
-ADDCOHORT ("<Cell>" "_")
-   BEFORE ("<State>" "State2" "OLD")
-       IF (1 ("<Cell>" "_") LINK -2 (>>>));
 ADDCOHORT ("<State>" "State2")
    BEFORE ("<Cell>")
        IF (1 ("<State>" "State2" "OLD") LINK
@@ -109,9 +91,6 @@ ADDCOHORT ("<Cell>" "0")
     AFTER ("<Cell>" "0" "OLD")
        IF (-1 ("<State>" "State2" "OLD"));;
 
-ADDCOHORT ("<Cell>" "_")
-   BEFORE ("<State>" "State2" "OLD")
-       IF (1 ("<Cell>" "_") LINK -2 (>>>));
 ADDCOHORT ("<State>" "State2")
    BEFORE ("<Cell>")
        IF (1 ("<State>" "State2" "OLD") LINK
@@ -125,3 +104,4 @@ REMCOHORT OLDCELL;
 
 AFTER-SECTIONS
 REMCOHORT ("<Cell>" "_") IF (NOT -1* SYMB);
+REMCOHORT ("<Cell>" "_") IF (NOT  1* SYMB);

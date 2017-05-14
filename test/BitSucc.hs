@@ -6,7 +6,8 @@ module BitSucc where
 
 import Data.Bits
 import Data.Enumerable
-import Data.Text (pack)
+import Data.Monoid ((<>))
+import Data.Text (pack,unpack)
 import Data.TM
 import Data.TM.Export
 
@@ -17,10 +18,18 @@ data Bit = Zero | One deriving (Eq, Show)
 instance Enumerable Bit where
   enum = [Zero,One]
 
-instance CG BitOrBlank where
-  toCG Nothing     = "_"
-  toCG (Just Zero) = "0"
-  toCG (Just One)  = "1"
+instance ToCG BitOrBlank where
+  toCG Nothing     = "\"_\""
+  toCG (Just Zero) = "\"0\""
+  toCG (Just One)  = "\"1\""
+
+instance FromCG BitOrBlank where
+  fromCG txt
+    | txt == "\"_\"" = Nothing
+    | txt == "\"0\"" = Just Zero
+    | txt == "\"1\"" = Just One
+    | otherwise = error $
+      "'" <> unpack txt <> "' is not a valid symbol"
 
 fromBits :: (Integral a, Bits a) => [Bit] -> a
 fromBits = foldr ($) 0 . map (flip setBit . fst) .
@@ -40,12 +49,12 @@ data BitSuccState = State0 | State1 | State2 | Halt deriving (Eq, Show)
 instance Enumerable BitSuccState where
   enum = [State0,State1,State2,Halt]
 
-instance CG BitSuccState where
-  toCG = pack . show
+instance ToCG BitSuccState where
+  toCG x = "\"" <> pack (show x) <> "\""
 
 -- |TM for the binary successor function.
-binSuccTM :: TM BitSuccState Bit BitOrBlank
-binSuccTM = TM{..}
+bitSuccTM :: TM BitSuccState Bit BitOrBlank
+bitSuccTM = TM{..}
   where
     start    = State0
     accept   = Halt
@@ -67,5 +76,5 @@ binSuccTM = TM{..}
     next (Halt  , _)         = error "TM: `next` should not be called from the halt state"
 
 stupidSucc :: (Integral a, Bits a) => a -> a
-stupidSucc = fromBits . evalTM binSuccTM . toBits
+stupidSucc = fromBits . evalTM bitSuccTM . toBits
 
