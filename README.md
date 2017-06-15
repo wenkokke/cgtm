@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/wenkokke/cgtm.svg?branch=master)](https://travis-ci.org/wenkokke/cgtm)
 
-This is a small library which generates VISL CG-3 code from Turing machine specifications, proving that VISL CG-3<a name="1" href="#ad1"><sup>1</sup></a> is Turing-complete<a name="2" href="#ad2"><sup>2</sup></a>.
+This is a small library which generates VISL CG-3 code from Turing machine specifications, proving that VISL CG-3<a name="1" href="#ad1"><sup>1</sup></a> is Turing-complete<a name="2" href="#ad2"><sup>2</sup></a>. This development is accompanied by a blog post, *[VISL CG-3 is the new assembler](https://wenkokke.github.io/2017/visl-cg-3-is-the-new-assembler/)*.
 
 ---
 
