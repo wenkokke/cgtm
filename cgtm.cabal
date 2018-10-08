@@ -2,12 +2,12 @@ name:                cgtm
 version:             0.1.0.0
 -- synopsis:
 -- description:
-homepage:            https://github.com/pepijnkokke/cgtm#readme
+homepage:            https://github.com/wenkokke/cgtm#readme
 license:             BSD3
 license-file:        LICENSE
-author:              Pepijn Kokke
-maintainer:          pepijn.kokke@gmail.com
-copyright:           (c) 2017 Pepijn Kokke
+author:              Wen Kokke
+maintainer:          wen.kokke@gmail.com
+copyright:           (c) 2017 wen Kokke
 category:            Web
 build-type:          Simple
 extra-source-files:  README.md
@@ -53,4 +53,4 @@ test-suite cgtm-spec-cg
 
 source-repository head
   type:     git
-  location: https://github.com/pepijnkokke/cgtm
+  location: https://github.com/wenkokke/cgtm
